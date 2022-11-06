@@ -8,3 +8,5 @@ This program takes the Wordle list of answers and the list of allowed guesses, l
 This is fundametally a brute force linear search since it has to look through every word in the word lists. But it does its job very well.
 
 At some point, I may build out code to accept user inputs. Right now, the version I've uploaded requires you to enter the info directly in the three lists/arrays. I've made abundant notes within the code, but this version does assume you have some programming experience and can enter the data in the right format.
+
+Update Nov 6, 2022 - I've started building out the code that accepts user inputs. Final version to come.
