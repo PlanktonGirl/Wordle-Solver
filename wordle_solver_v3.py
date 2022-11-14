@@ -23,19 +23,19 @@ full_list_shuffled = random.sample(full_word_list, len(full_word_list))
 
 # The next set of variables are where you will manually enter what you know so far. 
 
-known_letters = ['r', 'e', 'u']
+known_letters = []
 
 # Enter any letters you've eliminated below. 
 
-eliminated = ['h', 't', 'i', 'n', 'm', 'o', 'a', 'b', 'y', 'l', 'c']
+eliminated = []
 
 # This code lets you enter the positions of the letters you know.
 
-known_position = [[0, 'r'], [1, 'u'], [3, 'e'], [4, 'r']]
+known_position = []
 
 # This code accepts the *incorrect* positions of the letters you know
 
-wrong_position = [[2, 'r'], [3, 'u'], [4, 'e']]
+wrong_position = []
  
 # This is the function that does the work
 
@@ -110,7 +110,9 @@ def intro():
             print("")
             time.sleep(a)
             print("Ok, great! Here we go!")
+            print("")
             time.sleep(a)
+            get_eliminated()
     else:
         print("")
         time.sleep(a)
@@ -118,4 +120,62 @@ def intro():
         print("")
         time.sleep(a)
 
+# This function lets you input the eliminated letters
+def get_eliminated():
+    print("First, let's address any letters you've eliminated.")
+    while True:
+        print("")
+        time.sleep(a)
+        any_eliminated = input("Have you eliminated any letters from the word? Y/N: ")
+        if any_eliminated not in ("y", "n"):
+            print("")
+            time.sleep(a)
+            print("I'm sorry, I didn't understand that.")
+            print("")
+            time.sleep(a)
+            print("Please answer 'Y' or 'N'")
+            time.sleep(a)
+        else:
+            break
+    if any_eliminated == "y":
+            print("")
+            time.sleep(a)
+            print("Ok, let's have you enter those letters now.")
+            print("")
+            time.sleep(a)
+            print("Pleae type in the letters with a space in between each one in this format:")
+            print("")
+            time.sleep(a)
+            print("a b c d e ")
+            print("")
+            time.sleep(a)
+            print("If you enter the letters incorrectly, I won't be able to give you the right answers.")
+            print("")
+            time.sleep(a)
+            while True:
+                enter_eliminated = input("Enter the eliminated letters now: ")
+                if not enter_eliminated:
+                    print("")
+                    time.sleep(a)
+                    print("I'm sorry, you didn't enter any info.")
+                    print("")
+                    time.sleep(a)
+                else:
+                    break
+            print(enter_eliminated)
+            for letter in enter_eliminated.split():
+                eliminated.append(letter)
+                print(eliminated)
+            print("")
+            time.sleep(a)
+            print("Thank you. Now, let's talk about any letters you know.")
+
+    else:
+        print("")
+        time.sleep(a)
+        print("Ok, we'll move on then.")
+        print("")
+        time.sleep(a)
+
+#get_eliminated()
 intro()
