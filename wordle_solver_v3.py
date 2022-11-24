@@ -71,32 +71,10 @@ def intro():
     print("Welcome to my Wordle Solver!")
     print("")
     time.sleep(a)
-    print("Important note: This program assumes you're familiar with how to play Wordle")
-    time.sleep(b)
-    print("and that you've come here for help when you *just can't think* of a 5-letter word")
-    time.sleep(c)
-    print("that fits the letters you know and the ones you've eliminated.")
-    time.sleep(c)
-    print("")
-    print("First, I'm going to ask you to enter any letters you've completely eliminated from the word.")
-    time.sleep(c)
-    print("Then, I'm going to ask you about the letters you know are in the word.")
-    time.sleep(c)
-    print("I'm going to ask you for the letter itself, and any correct or incorrect positions of the letter in the word.")
-    time.sleep(d)
-    print("")
-    print("Once I have that information, I'll show you a list of all the 5-letter words that fit the criteria you've given me.")
-    time.sleep(d)
-    print("")
-    print("It will be important that you follow my instructions exactly")
-    time.sleep(c)
-    print("or my program may not give you the correct answer(s).")
-    time.sleep(c)
-    
     while True:
         print("")
-        get_started = input("Are you ready to get started? Y/N: ")
-        if get_started.lower() not in ("y", "n"):
+        need_intro = input("Do you want me to play the intro? Y/N: ")
+        if need_intro.lower() not in ("y", "n"):
             print("")
             time.sleep(a)
             print("I'm sorry, I didn't understand that.")
@@ -106,19 +84,64 @@ def intro():
             time.sleep(a)
         else:
             break
-    if get_started.lower() == "y":
+    if need_intro.lower() == "n":
+            print("")
+            time.sleep(a)
+            print("Ok, we'll get right to it then!")
+            print("")
+            time.sleep(a)
+            get_eliminated()
+    else:
+        print("")
+        print("This program assumes you're familiar with how to play Wordle")
+        time.sleep(b)
+        print("and that you've come here for help when you *just can't think* of a 5-letter word")
+        time.sleep(c)
+        print("that fits the letters you know and the ones you've eliminated.")
+        time.sleep(c)
+        print("")
+        print("First, I'm going to ask you to enter any letters you've completely eliminated from the word.")
+        time.sleep(c)
+        print("Then, I'm going to ask you about the letters you know are in the word.")
+        time.sleep(c)
+        print("I'm going to ask you for the letter itself, and any correct or incorrect positions of the letter in the word.")
+        time.sleep(d)
+        print("")
+        print("Once I have that information, I'll show you a list of all the 5-letter words that fit the criteria you've given me.")
+        time.sleep(d)
+        print("")
+        print("It will be important that you follow my instructions exactly")
+        time.sleep(c)
+        print("or my program may not give you the correct answer(s).")
+        time.sleep(c)
+    
+        while True:
+            print("")
+            time.sleep(a)
+            get_started = input("Are you ready to get started? Y/N: ")
+            if get_started.lower() not in ("y", "n"):
+                print("")
+                time.sleep(a)
+                print("I'm sorry, I didn't understand that.")
+                print("")
+                time.sleep(a)
+                print("Please answer 'Y' or 'N'")
+                time.sleep(a)
+            else:
+                break
+        if get_started.lower() == "y":
             print("")
             time.sleep(a)
             print("Ok, great! Here we go!")
             print("")
             time.sleep(a)
             get_eliminated()
-    else:
-        print("")
-        time.sleep(a)
-        print("No worries. Please come back when you're ready.")
-        print("")
-        time.sleep(a)
+        else:
+            print("")
+            time.sleep(a)
+            print("No worries. Please come back when you're ready.")
+            print("")
+            time.sleep(a)
 
 # This function lets you input the eliminated letters
 def get_eliminated():
