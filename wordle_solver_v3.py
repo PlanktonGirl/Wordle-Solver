@@ -191,7 +191,65 @@ def get_eliminated():
                 print(eliminated)
             print("")
             time.sleep(a)
-            print("Thank you. Now, let's talk about any letters you know.")
+            get_known()
+
+    else:
+        print("")
+        time.sleep(a)
+        print("Ok, we'll move on then.")
+        print("")
+        time.sleep(a)
+        get_known()
+
+# This function lets you input the known letters
+def get_known():
+    print("Next, let's talk about the letters you know are in the word.")
+    while True:
+        print("")
+        time.sleep(a)
+        any_known = input("Are there any letters you know? Y/N: ")
+        if any_known not in ("y", "n"):
+            print("")
+            time.sleep(a)
+            print("I'm sorry, I didn't understand that.")
+            print("")
+            time.sleep(a)
+            print("Please answer 'Y' or 'N'")
+            time.sleep(a)
+        else:
+            break
+    if any_known == "y":
+            print("")
+            time.sleep(a)
+            print("Ok, let's have you enter those letters now.")
+            print("")
+            time.sleep(a)
+            print("Pleae type in the letters with a space in between each one in this format:")
+            print("")
+            time.sleep(a)
+            print("a b c d e ")
+            print("")
+            time.sleep(a)
+            print("If you enter the letters incorrectly, I won't be able to give you the right answers.")
+            print("")
+            time.sleep(a)
+            while True:
+                enter_known = input("Enter the known letters now: ")
+                if not enter_known:
+                    print("")
+                    time.sleep(a)
+                    print("I'm sorry, you didn't enter any info.")
+                    print("")
+                    time.sleep(a)
+                else:
+                    break
+            print(enter_known)
+            for letter in enter_known.split():
+                known_letters.append(letter)
+                print(known_letters)
+            print("")
+            time.sleep(a)
+            
 
     else:
         print("")
@@ -200,5 +258,7 @@ def get_eliminated():
         print("")
         time.sleep(a)
 
+
 #get_eliminated()
 intro()
+#get_known()
