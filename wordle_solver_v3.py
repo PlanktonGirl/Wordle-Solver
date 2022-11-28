@@ -23,7 +23,7 @@ full_list_shuffled = random.sample(full_word_list, len(full_word_list))
 
 # The next set of variables are where you will manually enter what you know so far. 
 
-known_letters = []
+known_letters = ["a", "t", "m"]
 
 # Enter any letters you've eliminated below. 
 
@@ -150,7 +150,7 @@ def get_eliminated():
         print("")
         time.sleep(a)
         any_eliminated = input("Have you eliminated any letters from the word? Y/N: ")
-        if any_eliminated not in ("y", "n"):
+        if any_eliminated.lower not in ("y", "n"):
             print("")
             time.sleep(a)
             print("I'm sorry, I didn't understand that.")
@@ -160,7 +160,7 @@ def get_eliminated():
             time.sleep(a)
         else:
             break
-    if any_eliminated == "y":
+    if any_eliminated.lower() == "y":
             print("")
             time.sleep(a)
             print("Ok, let's have you enter those letters now.")
@@ -176,7 +176,7 @@ def get_eliminated():
             print("")
             time.sleep(a)
             while True:
-                enter_eliminated = input("Enter the eliminated letters now: ")
+                enter_eliminated = input("Enter the eliminated letters now: ").lower()
                 if not enter_eliminated:
                     print("")
                     time.sleep(a)
@@ -208,7 +208,7 @@ def get_known():
         print("")
         time.sleep(a)
         any_known = input("Are there any letters you know? Y/N: ")
-        if any_known not in ("y", "n"):
+        if any_known.lower() not in ("y", "n"):
             print("")
             time.sleep(a)
             print("I'm sorry, I didn't understand that.")
@@ -218,7 +218,7 @@ def get_known():
             time.sleep(a)
         else:
             break
-    if any_known == "y":
+    if any_known.lower() == "y":
             print("")
             time.sleep(a)
             print("Ok, let's have you enter those letters now.")
@@ -234,7 +234,7 @@ def get_known():
             print("")
             time.sleep(a)
             while True:
-                enter_known = input("Enter the known letters now: ")
+                enter_known = input("Enter the known letters now: ").lower()
                 if not enter_known:
                     print("")
                     time.sleep(a)
@@ -249,16 +249,102 @@ def get_known():
                 print(known_letters)
             print("")
             time.sleep(a)
-            
-
+       
     else:
         print("")
         time.sleep(a)
-        print("Ok, we'll move on then.")
+        print("Ok, we'll just check the eliminated word against the Wordle word lists.")
         print("")
         time.sleep(a)
+        print("Hang tight")
+        print("")
+        time.sleep(a)
+        print("")
+        time.sleep(a)
+        solve_wordle()
+
+
+def get_positions():
+    print("Finally, I'm going to have you enter the positions of the letters you know.")
+    print("")
+    time.sleep(a)
+    print("When I say, 'position,' I mean where letter is located in the word.")
+    print("")
+    time.sleep(a)
+    print("Like this:")
+    print("")
+    time.sleep(a)
+    print("t h e i r")
+    print("1 2 3 4 5")
+    print("")
+    time.sleep(a)
+    for letter in known_letters:
+        while True:
+                know_correct_position = input(f"Do you know the correct position of {letter}? Y/N: ")
+                if know_correct_position.lower() not in ("y", "n"):
+                    print("")
+                    time.sleep(a)
+                    print("I'm sorry, I didn't understand that.")
+                    print("")
+                    time.sleep(a)
+                    print("Please answer 'Y' or 'N'")
+                    time.sleep(a)
+                else:
+                    break
+        if know_correct_position.lower() == "y":
+            print("")
+            time.sleep(a)
+            print(f"Ok, let's have you enter the position of {letter}.")
+            print("")
+            time.sleep(a)
+            print(f"Please enter the position of {letter} as a number between 1 & 5.")
+            print("")
+            time.sleep(a)
+            print("Remember, like this:")
+            print("")
+            time.sleep(a)
+            print("t h e i r")
+            print("1 2 3 4 5")
+            print("")
+            time.sleep(a)
+            while True:
+                correct_position = int(input("Enter a number between 1 & 5 now: "))
+                if correct_position not in range(1, 6):
+                    print("")
+                    time.sleep(a)
+                    print("I'm sorry, you didn't enter a number between 1 & 5.")
+                    print("")
+                    time.sleep(a)
+                    print("Please try again.")
+                    print("")
+                    time.sleep(a)
+                else:
+                    break
+            known_position.append([correct_position - 1, letter])
+            print(known_position)
+            print("")
+            time.sleep(a)
+        
+        print("Ok, let's get any incorrect positions.")
+        while True:
+            know_incorrect_position = input("Do you know the incorrect positions of any letter? Y/N: ")
+            if know_incorrect_position.lower() not in ("y", "n"):
+                print("")
+                time.sleep(a)
+                print("I'm sorry, I didn't understand that.")
+                print("")
+                time.sleep(a)
+                print("Please answer 'Y' or 'N'")
+                time.sleep(a)
+            else:
+                break
+
+    #solve_wordle()
+
+
 
 
 #get_eliminated()
-intro()
+#intro()
 #get_known()
+get_positions()
