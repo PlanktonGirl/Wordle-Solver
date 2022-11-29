@@ -23,7 +23,7 @@ full_list_shuffled = random.sample(full_word_list, len(full_word_list))
 
 # The next set of variables are where you will manually enter what you know so far. 
 
-known_letters = ["a", "t", "m"]
+known_letters = ["a", "t", "p"]
 
 # Enter any letters you've eliminated below. 
 
@@ -150,7 +150,7 @@ def get_eliminated():
         print("")
         time.sleep(a)
         any_eliminated = input("Have you eliminated any letters from the word? Y/N: ")
-        if any_eliminated.lower not in ("y", "n"):
+        if any_eliminated.lower() not in ("y", "n"):
             print("")
             time.sleep(a)
             print("I'm sorry, I didn't understand that.")
@@ -249,6 +249,7 @@ def get_known():
                 print(known_letters)
             print("")
             time.sleep(a)
+            get_positions()
        
     else:
         print("")
@@ -280,7 +281,7 @@ def get_positions():
     time.sleep(a)
     for letter in known_letters:
         while True:
-                know_correct_position = input(f"Do you know the correct position of {letter}? Y/N: ")
+                know_correct_position = input(f"Do you know any correct positions of {letter}? Y/N: ")
                 if know_correct_position.lower() not in ("y", "n"):
                     print("")
                     time.sleep(a)
@@ -294,7 +295,7 @@ def get_positions():
         if know_correct_position.lower() == "y":
             print("")
             time.sleep(a)
-            print(f"Ok, let's have you enter the position of {letter}.")
+            print(f"Ok, let's have you enter the corrct position(s) of {letter}.")
             print("")
             time.sleep(a)
             print(f"Please enter the position of {letter} as a number between 1 & 5.")
@@ -307,9 +308,20 @@ def get_positions():
             print("1 2 3 4 5")
             print("")
             time.sleep(a)
+            print(f"If you know more than one correct position of {letter} in the word,")
+            time.sleep(c)
+            print("please enter the number of each position separated by a single space")
+            time.sleep(c)
+            print("just like you did when you entered the letters.")
+            print("")
+            time.sleep(a)
             while True:
-                correct_position = int(input("Enter a number between 1 & 5 now: "))
-                if correct_position not in range(1, 6):
+                correct_position = (input("Enter one or more numbers between 1 & 5 now: "))
+                correct_position_integers = [int(number) for number in correct_position.split()]
+                print(correct_position_integers)
+                in_range = all(n in range(1, 6) for n in correct_position_integers)                
+                print(in_range)                
+                if not in_range:
                     print("")
                     time.sleep(a)
                     print("I'm sorry, you didn't enter a number between 1 & 5.")
@@ -320,14 +332,14 @@ def get_positions():
                     time.sleep(a)
                 else:
                     break
-            known_position.append([correct_position - 1, letter])
-            print(known_position)
-            print("")
-            time.sleep(a)
+            for number in correct_position.split():
+                known_position.append([int(number) - 1, letter])
+                print(known_position)
+                print("")
+                time.sleep(a)
         
-        print("Ok, let's get any incorrect positions.")
         while True:
-            know_incorrect_position = input("Do you know the incorrect positions of any letter? Y/N: ")
+            know_incorrect_position = input(f"Do you know any incorrect positions of {letter}? Y/N: ")
             if know_incorrect_position.lower() not in ("y", "n"):
                 print("")
                 time.sleep(a)
@@ -338,8 +350,57 @@ def get_positions():
                 time.sleep(a)
             else:
                 break
+        if know_incorrect_position.lower() == "y":
+            print("")
+            time.sleep(a)
+            print(f"Ok, let's have you enter any wrong position(s) of {letter}.")
+            print("")
+            time.sleep(a)
+            print(f"Please enter the wrong position(s) of {letter} as a number between 1 & 5.")
+            print("")
+            time.sleep(a)
+            print("Remember, like this:")
+            print("")
+            time.sleep(a)
+            print("t h e i r")
+            print("1 2 3 4 5")
+            print("")
+            time.sleep(a)
+            print(f"If you know more one wrong position of {letter} in the word,")
+            time.sleep(c)
+            print("please enter each the number of each position separated by a single space")
+            time.sleep(c)
+            print("just like you did when you entered the letters.")
+            print("")
+            time.sleep(a)
+            while True:
+                incorrect_position = (input("Enter one or more numbers between 1 & 5 now: "))
+                incorrect_position_integers = [int(number) for number in incorrect_position.split()]
+                print(incorrect_position_integers)
+                in_range_incorrect = all(n in range(1, 6) for n in incorrect_position_integers)                
+                print(in_range_incorrect)                
+                if not in_range_incorrect:
+                    print("")
+                    time.sleep(a)
+                    print("I'm sorry, you didn't enter a number between 1 & 5.")
+                    print("")
+                    time.sleep(a)
+                    print("Please try again.")
+                    print("")
+                    time.sleep(a)
+                else:
+                    break
+            for number in incorrect_position.split():
+                wrong_position.append([int(number) - 1, letter])
+                print(wrong_position)
+                print("")
+                time.sleep(a)
+        else:
+            print("")
+            time.sleep(a)
+                       
 
-    #solve_wordle()
+    solve_wordle()
 
 
 
