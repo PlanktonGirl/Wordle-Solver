@@ -23,7 +23,7 @@ full_list_shuffled = random.sample(full_word_list, len(full_word_list))
 
 # The next set of variables are where you will manually enter what you know so far. 
 
-known_letters = ["a", "t", "p"]
+known_letters = []
 
 # Enter any letters you've eliminated below. 
 
@@ -295,7 +295,7 @@ def get_positions():
         if know_correct_position.lower() == "y":
             print("")
             time.sleep(a)
-            print(f"Ok, let's have you enter the corrct position(s) of {letter}.")
+            print(f"Ok, let's have you enter the correct position(s) of {letter}.")
             print("")
             time.sleep(a)
             print(f"Please enter the position of {letter} as a number between 1 & 5.")
@@ -324,7 +324,7 @@ def get_positions():
                 if not in_range:
                     print("")
                     time.sleep(a)
-                    print("I'm sorry, you didn't enter a number between 1 & 5.")
+                    print("I'm sorry, you entered something that isn't a number between 1 & 5.")
                     print("")
                     time.sleep(a)
                     print("Please try again.")
@@ -335,9 +335,9 @@ def get_positions():
             for number in correct_position.split():
                 known_position.append([int(number) - 1, letter])
                 print(known_position)
-                print("")
-                time.sleep(a)
-        
+                
+        print("")
+        time.sleep(a)
         while True:
             know_incorrect_position = input(f"Do you know any incorrect positions of {letter}? Y/N: ")
             if know_incorrect_position.lower() not in ("y", "n"):
@@ -366,7 +366,7 @@ def get_positions():
             print("1 2 3 4 5")
             print("")
             time.sleep(a)
-            print(f"If you know more one wrong position of {letter} in the word,")
+            print(f"If you know more than one wrong position of {letter} in the word,")
             time.sleep(c)
             print("please enter each the number of each position separated by a single space")
             time.sleep(c)
@@ -382,7 +382,7 @@ def get_positions():
                 if not in_range_incorrect:
                     print("")
                     time.sleep(a)
-                    print("I'm sorry, you didn't enter a number between 1 & 5.")
+                    print("I'm sorry, you entered something that isn't a number between 1 & 5.")
                     print("")
                     time.sleep(a)
                     print("Please try again.")
@@ -406,6 +406,6 @@ def get_positions():
 
 
 #get_eliminated()
-#intro()
+intro()
 #get_known()
-get_positions()
+#get_positions()
