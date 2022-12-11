@@ -1,12 +1,14 @@
 # Wordle-Solver
-A little program I wrote for when I'm Wordling and get stuck
+This started as a "for fun" project, but became a portfolio project for a DSA class
+
+This is a linear search algorithm with a O(N) runtime since it has to check every word in the lists one time.
 
 The program was built in Python 3
 
 This program takes the Wordle list of answers and the list of allowed guesses, lets you enter the letters you know and the letters you've eliminated, and searches the two word lists and only returns the words that fit your criteria. 
 
-This is fundametally a brute force linear search since it has to look through every word in the word lists. But it does its job very well.
+There are two versions of the program. One is just the search algorithm, and is for people who know Python 3 and are able to enter the letters and positions directly into the lists/arrays.
 
-At some point, I may build out code to accept user inputs. Right now, the version I've uploaded requires you to enter the info directly in the three lists/arrays. I've made abundant notes within the code, but this version does assume you have some programming experience and can enter the data in the right format.
+There is another version that runs like an application and accepts the letters and positions as input.
 
-Update Nov 6, 2022 - I've started building out the code that accepts user inputs. Final version to come.
+Happy Wordling!
