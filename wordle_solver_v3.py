@@ -3,45 +3,44 @@
 
 import random
 import time
+import string
 
+#Variables for time.sleep()
 a = 2
 b = 3
 c = 4
 d = 5
 
+alphabet=list(string.ascii_lowercase)
+
 # This code imports the word lists
 
-with open(r"C:\Users\Rebecca\Desktop\Wordle Solver\answers.txt") as answers_file:
+with open(r"answers.txt") as answers_file:
   wordle_answers = answers_file.read().split()
 
-with open(r"C:\Users\Rebecca\Desktop\Wordle Solver\allowed.txt") as allowed_file:
+with open(r"allowed.txt") as allowed_file:
     allowed_guesses = allowed_file.read().split()
 
 # This code combines the two word lists and shuffles them so the answers list is mixed in with the allowed guesss list
 full_word_list = allowed_guesses + wordle_answers
 full_list_shuffled = random.sample(full_word_list, len(full_word_list))
 
-# The next set of variables are where you will manually enter what you know so far. 
+# The next 4 variables will store the inputs: 
 
 known_letters = []
 
-# Enter any letters you've eliminated below. 
-
 eliminated = []
-
-# This code lets you enter the positions of the letters you know.
 
 known_position = []
 
-# This code accepts the *incorrect* positions of the letters you know
-
 wrong_position = []
  
-# This is the function that does the work
-
+# This is the linear search function that checks the word lists againt the inputted letters:
 def solve_wordle():
     possible_words = set()
+
     for word in full_list_shuffled:
+        #Check if the word has any of the eliminated letters
         has_eliminated = any([letter in word for letter in eliminated])
         if not has_eliminated:
             has_known = all([known in word for known in known_letters])
@@ -58,19 +57,18 @@ def solve_wordle():
                         possible_words.add(word)
                 else:
                     possible_words.add(word)
-    print(possible_words)                       
+    print(*possible_words, sep="\n")
+    print("")                       
 
            
-#solve_wordle()
-
-#Adding an intro for the user
-
+#Intro that explains how the program works:
 def intro():
     print("")
     print("")
     print("Welcome to my Wordle Solver!")
     print("")
     time.sleep(a)
+    #Loop makes sure the input is y or n:
     while True:
         print("")
         need_intro = input("Do you want me to play the intro? Y/N: ")
@@ -114,7 +112,7 @@ def intro():
         time.sleep(c)
         print("or my program may not give you the correct answer(s).")
         time.sleep(c)
-    
+        #Loop makes sure the input is y or n
         while True:
             print("")
             time.sleep(a)
@@ -135,6 +133,7 @@ def intro():
             print("Ok, great! Here we go!")
             print("")
             time.sleep(a)
+            #runs the get_eliminated function
             get_eliminated()
         else:
             print("")
@@ -146,6 +145,7 @@ def intro():
 # This function lets you input the eliminated letters
 def get_eliminated():
     print("First, let's address any letters you've eliminated.")
+    #Loop makes sure the input is y or n
     while True:
         print("")
         time.sleep(a)
@@ -175,22 +175,31 @@ def get_eliminated():
             print("If you enter the letters incorrectly, I won't be able to give you the right answers.")
             print("")
             time.sleep(a)
+            #Loop makes sure the input is letters only
             while True:
                 enter_eliminated = input("Enter the eliminated letters now: ").lower()
-                if not enter_eliminated:
+                enter_eliminated_list = [letter for letter in enter_eliminated.split()]
+                #print(enter_eliminated_list)
+                in_alpha = all(l in alphabet for l in enter_eliminated_list)                
+                #print(in_alpha)                
+                if not in_alpha:
                     print("")
                     time.sleep(a)
-                    print("I'm sorry, you didn't enter any info.")
+                    print("I'm sorry, you entered something other than letters and spaces.")
+                    print("")
+                    time.sleep(a)
+                    print("Let's try that again")
                     print("")
                     time.sleep(a)
                 else:
                     break
-            print(enter_eliminated)
+            #print(enter_eliminated)
             for letter in enter_eliminated.split():
                 eliminated.append(letter)
-                print(eliminated)
+                #print(eliminated)
             print("")
             time.sleep(a)
+            #runs the get_known function
             get_known()
 
     else:
@@ -199,11 +208,13 @@ def get_eliminated():
         print("Ok, we'll move on then.")
         print("")
         time.sleep(a)
+        #runs the get_known function
         get_known()
 
 # This function lets you input the known letters
 def get_known():
     print("Next, let's talk about the letters you know are in the word.")
+    #A loop to make sure the input is y or n
     while True:
         print("")
         time.sleep(a)
@@ -233,22 +244,31 @@ def get_known():
             print("If you enter the letters incorrectly, I won't be able to give you the right answers.")
             print("")
             time.sleep(a)
+            #Loop makes sure the input is letters only
             while True:
                 enter_known = input("Enter the known letters now: ").lower()
-                if not enter_known:
+                enter_known_list = [letter for letter in enter_known.split()]
+                #print(enter_known_list)
+                in_alpha_known = all(l in alphabet for l in enter_known_list)                
+                #print(in_alpha_known)                
+                if not in_alpha_known:
                     print("")
                     time.sleep(a)
-                    print("I'm sorry, you didn't enter any info.")
+                    print("I'm sorry, you entered something other than letters and spaces.")
+                    print("")
+                    time.sleep(a)
+                    print("Let's try that again")
                     print("")
                     time.sleep(a)
                 else:
                     break
-            print(enter_known)
+            #print(enter_known)
             for letter in enter_known.split():
                 known_letters.append(letter)
-                print(known_letters)
+                #print(known_letters)
             print("")
             time.sleep(a)
+            #runs the get_positions function
             get_positions()
        
     else:
@@ -262,9 +282,10 @@ def get_known():
         time.sleep(a)
         print("")
         time.sleep(a)
+        #run the solve_wordle function based on eliminated letters only
         solve_wordle()
 
-
+#This function let you input the correct and incorrect position of the known letters
 def get_positions():
     print("Finally, I'm going to have you enter the positions of the letters you know.")
     print("")
@@ -279,6 +300,7 @@ def get_positions():
     print("1 2 3 4 5")
     print("")
     time.sleep(a)
+    #Loop makes sure the input it y or n
     for letter in known_letters:
         while True:
                 know_correct_position = input(f"Do you know any correct positions of {letter}? Y/N: ")
@@ -315,12 +337,13 @@ def get_positions():
             print("just like you did when you entered the letters.")
             print("")
             time.sleep(a)
+            #Loop make sure the input is numbers between 1 & 5 only
             while True:
                 correct_position = (input("Enter one or more numbers between 1 & 5 now: "))
                 correct_position_integers = [int(number) for number in correct_position.split()]
-                print(correct_position_integers)
+                #print(correct_position_integers)
                 in_range = all(n in range(1, 6) for n in correct_position_integers)                
-                print(in_range)                
+                #print(in_range)                
                 if not in_range:
                     print("")
                     time.sleep(a)
@@ -334,10 +357,11 @@ def get_positions():
                     break
             for number in correct_position.split():
                 known_position.append([int(number) - 1, letter])
-                print(known_position)
+                #print(known_position)
                 
         print("")
         time.sleep(a)
+        #Loop make sure input is y or n
         while True:
             know_incorrect_position = input(f"Do you know any incorrect positions of {letter}? Y/N: ")
             if know_incorrect_position.lower() not in ("y", "n"):
@@ -373,12 +397,13 @@ def get_positions():
             print("just like you did when you entered the letters.")
             print("")
             time.sleep(a)
+            #Loop make sure the input is numbers between 1 & 5 only
             while True:
                 incorrect_position = (input("Enter one or more numbers between 1 & 5 now: "))
                 incorrect_position_integers = [int(number) for number in incorrect_position.split()]
-                print(incorrect_position_integers)
+                #print(incorrect_position_integers)
                 in_range_incorrect = all(n in range(1, 6) for n in incorrect_position_integers)                
-                print(in_range_incorrect)                
+                #print(in_range_incorrect)                
                 if not in_range_incorrect:
                     print("")
                     time.sleep(a)
@@ -392,20 +417,17 @@ def get_positions():
                     break
             for number in incorrect_position.split():
                 wrong_position.append([int(number) - 1, letter])
-                print(wrong_position)
+                #print(wrong_position)
                 print("")
                 time.sleep(a)
         else:
             print("")
             time.sleep(a)
                        
-
+    #runs the solve_wordle function 
     solve_wordle()
 
 
 
 
-#get_eliminated()
 intro()
-#get_known()
-#get_positions()
