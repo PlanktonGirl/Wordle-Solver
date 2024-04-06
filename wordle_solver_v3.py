@@ -15,10 +15,10 @@ alphabet=list(string.ascii_lowercase)
 
 # This code imports the word lists
 
-with open(r"answers.txt") as answers_file:
+with open('./answers.txt') as answers_file:
   wordle_answers = answers_file.read().split()
 
-with open(r"allowed.txt") as allowed_file:
+with open('./allowed.txt') as allowed_file:
     allowed_guesses = allowed_file.read().split()
 
 # This code combines the two word lists and shuffles them so the answers list is mixed in with the allowed guesss list
@@ -34,7 +34,8 @@ eliminated = []
 known_position = []
 
 wrong_position = []
- 
+
+          
 # This is the linear search function that checks the word lists againt the inputted letters:
 def solve_wordle():
     possible_words = set()
@@ -60,7 +61,24 @@ def solve_wordle():
     print(*possible_words, sep="\n")
     print("")                       
 
-           
+# This is a helper function for the yes or no inputs
+def helper_yn(question):
+    choice = ''
+    while choice.lower() not in ('y', 'n'): 
+        choice = input(question)
+        if choice.lower() in ('y', 'n'):
+            return choice
+            break
+        else:
+            print("")
+            time.sleep(a)
+            print("I'm sorry, I didn't understand that.")
+            print("")
+            time.sleep(a)
+            print("Please answer 'Y' or 'N'")
+            print("")
+            time.sleep(a)
+
 #Intro that explains how the program works:
 def intro():
     print("")
@@ -68,20 +86,9 @@ def intro():
     print("Welcome to my Wordle Solver!")
     print("")
     time.sleep(a)
-    #Loop makes sure the input is y or n:
-    while True:
-        print("")
-        need_intro = input("Do you want me to play the intro? Y/N: ")
-        if need_intro.lower() not in ("y", "n"):
-            print("")
-            time.sleep(a)
-            print("I'm sorry, I didn't understand that.")
-            print("")
-            time.sleep(a)
-            print("Please answer 'Y' or 'N'")
-            time.sleep(a)
-        else:
-            break
+    q_intro = "Do you want me to play the intro? Y/N: "
+    need_intro = helper_yn(q_intro)
+     
     if need_intro.lower() == "n":
             print("")
             time.sleep(a)
@@ -111,22 +118,13 @@ def intro():
         print("It will be important that you follow my instructions exactly")
         time.sleep(c)
         print("or my program may not give you the correct answer(s).")
+        print("")
         time.sleep(c)
-        #Loop makes sure the input is y or n
-        while True:
-            print("")
-            time.sleep(a)
-            get_started = input("Are you ready to get started? Y/N: ")
-            if get_started.lower() not in ("y", "n"):
-                print("")
-                time.sleep(a)
-                print("I'm sorry, I didn't understand that.")
-                print("")
-                time.sleep(a)
-                print("Please answer 'Y' or 'N'")
-                time.sleep(a)
-            else:
-                break
+        
+       
+        q_start = "Are you ready to get started? Y/N: "
+        get_started = helper_yn(q_start)
+            
         if get_started.lower() == "y":
             print("")
             time.sleep(a)
@@ -145,21 +143,9 @@ def intro():
 # This function lets you input the eliminated letters
 def get_eliminated():
     print("First, let's address any letters you've eliminated.")
-    #Loop makes sure the input is y or n
-    while True:
-        print("")
-        time.sleep(a)
-        any_eliminated = input("Have you eliminated any letters from the word? Y/N: ")
-        if any_eliminated.lower() not in ("y", "n"):
-            print("")
-            time.sleep(a)
-            print("I'm sorry, I didn't understand that.")
-            print("")
-            time.sleep(a)
-            print("Please answer 'Y' or 'N'")
-            time.sleep(a)
-        else:
-            break
+    q_eliminated = "Have you eliminated any letters from the word? Y/N: "
+    any_eliminated = helper_yn(q_eliminated)
+    
     if any_eliminated.lower() == "y":
             print("")
             time.sleep(a)
@@ -214,21 +200,9 @@ def get_eliminated():
 # This function lets you input the known letters
 def get_known():
     print("Next, let's talk about the letters you know are in the word.")
-    #A loop to make sure the input is y or n
-    while True:
-        print("")
-        time.sleep(a)
-        any_known = input("Are there any letters you know? Y/N: ")
-        if any_known.lower() not in ("y", "n"):
-            print("")
-            time.sleep(a)
-            print("I'm sorry, I didn't understand that.")
-            print("")
-            time.sleep(a)
-            print("Please answer 'Y' or 'N'")
-            time.sleep(a)
-        else:
-            break
+    q_known = "Are there any letters you know? Y/N: "
+    any_known = helper_yn(q_known)
+    
     if any_known.lower() == "y":
             print("")
             time.sleep(a)
@@ -300,20 +274,11 @@ def get_positions():
     print("1 2 3 4 5")
     print("")
     time.sleep(a)
-    #Loop makes sure the input it y or n
+    
     for letter in known_letters:
-        while True:
-                know_correct_position = input(f"Do you know any correct positions of {letter}? Y/N: ")
-                if know_correct_position.lower() not in ("y", "n"):
-                    print("")
-                    time.sleep(a)
-                    print("I'm sorry, I didn't understand that.")
-                    print("")
-                    time.sleep(a)
-                    print("Please answer 'Y' or 'N'")
-                    time.sleep(a)
-                else:
-                    break
+        q_correct_p = f"Do you know any correct positions of {letter}? Y/N: "
+        know_correct_position = helper_yn(q_correct_p)
+        
         if know_correct_position.lower() == "y":
             print("")
             time.sleep(a)
@@ -361,19 +326,9 @@ def get_positions():
                 
         print("")
         time.sleep(a)
-        #Loop make sure input is y or n
-        while True:
-            know_incorrect_position = input(f"Do you know any incorrect positions of {letter}? Y/N: ")
-            if know_incorrect_position.lower() not in ("y", "n"):
-                print("")
-                time.sleep(a)
-                print("I'm sorry, I didn't understand that.")
-                print("")
-                time.sleep(a)
-                print("Please answer 'Y' or 'N'")
-                time.sleep(a)
-            else:
-                break
+        q_incorrect_p = f"Do you know any incorrect positions of {letter}? Y/N: "
+        know_incorrect_position = helper_yn(q_incorrect_p)
+        
         if know_incorrect_position.lower() == "y":
             print("")
             time.sleep(a)
@@ -426,8 +381,6 @@ def get_positions():
                        
     #runs the solve_wordle function 
     solve_wordle()
-
-
 
 
 intro()
