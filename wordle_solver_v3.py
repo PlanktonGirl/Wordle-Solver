@@ -99,8 +99,8 @@ def helper_num():
             continue
 
         in_range = all(n in range(1, 6) for n in position_integers)                
-                     
-        if not in_range:
+                 
+        if not position_integers or not in_range:
             print("")
             time.sleep(a)
             print("I'm sorry, you entered something that isn't a number between 1 & 5.")
@@ -112,7 +112,7 @@ def helper_num():
         else:
             return position_integers
             break
-
+helper_num()
 
 #Intro that explains how the program works:
 def intro():
@@ -386,4 +386,4 @@ def get_positions():
     solve_wordle()
 
 
-intro()
+#intro()
