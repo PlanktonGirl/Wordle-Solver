@@ -79,6 +79,41 @@ def helper_yn(question):
             print("")
             time.sleep(a)
 
+# Helper function for number inputs
+def helper_num():
+    while True:
+        position = (input("Enter one or more numbers between 1 & 5 now: "))
+        position_integers = []
+        try:
+            for i in position.split():
+                position_integers.append(int(i))
+        except ValueError as e:
+            print("")
+            time.sleep(a)
+            print("I'm sorry, you entered something that isn't a number between 1 & 5.")
+            print("")
+            time.sleep(a)
+            print("Please try again.")
+            print("")
+            time.sleep(a)
+            continue
+
+        in_range = all(n in range(1, 6) for n in position_integers)                
+                     
+        if not in_range:
+            print("")
+            time.sleep(a)
+            print("I'm sorry, you entered something that isn't a number between 1 & 5.")
+            print("")
+            time.sleep(a)
+            print("Please try again.")
+            print("")
+            time.sleep(a)
+        else:
+            return position_integers
+            break
+
+
 #Intro that explains how the program works:
 def intro():
     print("")
@@ -303,27 +338,11 @@ def get_positions():
             print("")
             time.sleep(a)
             #Loop make sure the input is numbers between 1 & 5 only
-            while True:
-                correct_position = (input("Enter one or more numbers between 1 & 5 now: "))
-                correct_position_integers = [int(number) for number in correct_position.split()]
-                #print(correct_position_integers)
-                in_range = all(n in range(1, 6) for n in correct_position_integers)                
-                #print(in_range)                
-                if not in_range:
-                    print("")
-                    time.sleep(a)
-                    print("I'm sorry, you entered something that isn't a number between 1 & 5.")
-                    print("")
-                    time.sleep(a)
-                    print("Please try again.")
-                    print("")
-                    time.sleep(a)
-                else:
-                    break
-            for number in correct_position.split():
-                known_position.append([int(number) - 1, letter])
-                #print(known_position)
-                
+            correct_position = helper_num()
+            
+            for n in correct_position:
+                known_position.append([int(n) - 1, letter])
+                                
         print("")
         time.sleep(a)
         q_incorrect_p = f"Do you know any incorrect positions of {letter}? Y/N: "
@@ -353,25 +372,9 @@ def get_positions():
             print("")
             time.sleep(a)
             #Loop make sure the input is numbers between 1 & 5 only
-            while True:
-                incorrect_position = (input("Enter one or more numbers between 1 & 5 now: "))
-                incorrect_position_integers = [int(number) for number in incorrect_position.split()]
-                #print(incorrect_position_integers)
-                in_range_incorrect = all(n in range(1, 6) for n in incorrect_position_integers)                
-                #print(in_range_incorrect)                
-                if not in_range_incorrect:
-                    print("")
-                    time.sleep(a)
-                    print("I'm sorry, you entered something that isn't a number between 1 & 5.")
-                    print("")
-                    time.sleep(a)
-                    print("Please try again.")
-                    print("")
-                    time.sleep(a)
-                else:
-                    break
-            for number in incorrect_position.split():
-                wrong_position.append([int(number) - 1, letter])
+            incorrect_position = helper_num()
+            for n in incorrect_position:
+                wrong_position.append([int(n) - 1, letter])
                 #print(wrong_position)
                 print("")
                 time.sleep(a)
