@@ -19,10 +19,6 @@ with open('./answers.txt') as answers_file:
 with open('./allowed.txt') as allowed_file:
     allowed_guesses = allowed_file.read().split()
 
-# This code combines the two word lists and shuffles them so the answers list is mixed in with the allowed guesss list
-full_word_list = allowed_guesses + wordle_answers
-full_list_shuffled = random.sample(full_word_list, len(full_word_list))
-
 # The next 4 variables will store the inputs: 
 
 known_letters = []
@@ -37,6 +33,9 @@ wrong_position = []
 # This is the linear search function that checks the word lists againt the inputted letters:
 def solve_wordle():
     possible_words = set()
+    # This code combines the two word lists and shuffles them so the answers list is mixed in with the allowed guesss list
+    full_word_list = allowed_guesses + wordle_answers
+    full_list_shuffled = random.sample(full_word_list, len(full_word_list))
 
     for word in full_list_shuffled:
         #Check if the word has any of the eliminated letters
