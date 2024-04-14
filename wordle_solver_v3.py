@@ -11,8 +11,6 @@ b = 3
 c = 4
 d = 5
 
-alphabet=list(string.ascii_lowercase)
-
 # This code imports the word lists
 
 with open('./answers.txt') as answers_file:
@@ -68,7 +66,7 @@ def helper_yn(question):
         choice = input(question)
         if choice.lower() in ('y', 'n'):
             return choice
-            break
+            #break
         else:
             print("")
             time.sleep(a)
@@ -111,8 +109,29 @@ def helper_num():
             time.sleep(a)
         else:
             return position_integers
-            break
-helper_num()
+            #break
+
+# Helper function for letter inputs
+def helper_alpha(question):
+    alphabet=list(string.ascii_lowercase)
+    letters_list = []
+    while True:
+        letters = input(question).lower()
+        for l in letters.split():
+            letters_list.append(l)
+        in_alpha = all(l in alphabet for l in letters_list)                              
+        if not in_alpha:
+            print("")
+            time.sleep(a)
+            print("I'm sorry, you entered something other than letters and spaces.")
+            print("")
+            time.sleep(a)
+            print("Let's try that again")
+            print("")
+            time.sleep(a)
+        else:
+            return letters_list
+    
 
 #Intro that explains how the program works:
 def intro():
@@ -197,27 +216,10 @@ def get_eliminated():
             print("")
             time.sleep(a)
             #Loop makes sure the input is letters only
-            while True:
-                enter_eliminated = input("Enter the eliminated letters now: ").lower()
-                enter_eliminated_list = [letter for letter in enter_eliminated.split()]
-                #print(enter_eliminated_list)
-                in_alpha = all(l in alphabet for l in enter_eliminated_list)                
-                #print(in_alpha)                
-                if not in_alpha:
-                    print("")
-                    time.sleep(a)
-                    print("I'm sorry, you entered something other than letters and spaces.")
-                    print("")
-                    time.sleep(a)
-                    print("Let's try that again")
-                    print("")
-                    time.sleep(a)
-                else:
-                    break
-            #print(enter_eliminated)
-            for letter in enter_eliminated.split():
+            q_alpha = "Enter the eliminated letters now: "
+            enter_eliminated = helper_alpha(q_alpha)
+            for letter in enter_eliminated:
                 eliminated.append(letter)
-                #print(eliminated)
             print("")
             time.sleep(a)
             #runs the get_known function
@@ -254,27 +256,10 @@ def get_known():
             print("")
             time.sleep(a)
             #Loop makes sure the input is letters only
-            while True:
-                enter_known = input("Enter the known letters now: ").lower()
-                enter_known_list = [letter for letter in enter_known.split()]
-                #print(enter_known_list)
-                in_alpha_known = all(l in alphabet for l in enter_known_list)                
-                #print(in_alpha_known)                
-                if not in_alpha_known:
-                    print("")
-                    time.sleep(a)
-                    print("I'm sorry, you entered something other than letters and spaces.")
-                    print("")
-                    time.sleep(a)
-                    print("Let's try that again")
-                    print("")
-                    time.sleep(a)
-                else:
-                    break
-            #print(enter_known)
-            for letter in enter_known.split():
+            q_alpha = "Enter the known letters now: "
+            enter_known = helper_alpha(q_alpha)
+            for letter in enter_known:
                 known_letters.append(letter)
-                #print(known_letters)
             print("")
             time.sleep(a)
             #runs the get_positions function
@@ -386,4 +371,4 @@ def get_positions():
     solve_wordle()
 
 
-#intro()
+intro()
