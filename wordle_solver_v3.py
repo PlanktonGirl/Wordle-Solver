@@ -21,8 +21,6 @@ with open('./allowed.txt') as allowed_file:
 
 # The next 4 variables will store the inputs: 
 
-known_position = []
-
 wrong_position = []
                   
 
@@ -253,6 +251,7 @@ def get_known(eliminated):
 
 #This function let you input the correct and incorrect position of the known letters
 def get_positions(eliminated, known_letters):
+    known_position = []
     print("Finally, I'm going to have you enter the positions of the letters you know.")
     print("")
     time.sleep(a)
@@ -340,10 +339,10 @@ def get_positions(eliminated, known_letters):
             time.sleep(a)
                        
     #runs the solve_wordle function 
-    solve_wordle(eliminated, known_letters)
+    solve_wordle(eliminated, known_letters, known_position)
 
 # This is the linear search function that checks the word lists againt the inputted letters:
-def solve_wordle(eliminated, known_letters):
+def solve_wordle(eliminated, known_letters, known_position):
     possible_words = set()
     # This code combines the two word lists and shuffles them so the answers list is mixed in with the allowed guesss list
     full_word_list = allowed_guesses + wordle_answers
