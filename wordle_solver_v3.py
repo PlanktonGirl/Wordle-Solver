@@ -21,10 +21,6 @@ with open('./allowed.txt') as allowed_file:
 
 # The next 4 variables will store the inputs: 
 
-
-
-eliminated = []
-
 known_position = []
 
 wrong_position = []
@@ -166,6 +162,7 @@ def intro():
 
 # This function lets you input the eliminated letters
 def get_eliminated():
+    eliminated = []
     print("First, let's address any letters you've eliminated.")
     print("")
     time.sleep(a)
@@ -195,7 +192,7 @@ def get_eliminated():
             print("")
             time.sleep(a)
             #runs the get_known function
-            get_known()
+            get_known(eliminated)
 
     else:
         print("")
@@ -204,10 +201,10 @@ def get_eliminated():
         print("")
         time.sleep(a)
         #runs the get_known function
-        get_known()
+        get_known(eliminated)
 
 # This function lets you input the known letters
-def get_known():
+def get_known(eliminated):
     known_letters = []
     print("Next, let's talk about the letters you know are in the word.")
     print("")
@@ -238,7 +235,7 @@ def get_known():
             print("")
             time.sleep(a)
             #runs the get_positions function
-            get_positions(known_letters)
+            get_positions(eliminated, known_letters)
        
     else:
         print("")
@@ -252,10 +249,10 @@ def get_known():
         print("")
         time.sleep(a)
         #run the solve_wordle function based on eliminated letters only
-        solve_wordle(known_letters)
+        solve_wordle(eliminated, known_letters)
 
 #This function let you input the correct and incorrect position of the known letters
-def get_positions(known_letters):
+def get_positions(eliminated, known_letters):
     print("Finally, I'm going to have you enter the positions of the letters you know.")
     print("")
     time.sleep(a)
@@ -343,10 +340,10 @@ def get_positions(known_letters):
             time.sleep(a)
                        
     #runs the solve_wordle function 
-    solve_wordle(known_letters)
+    solve_wordle(eliminated, known_letters)
 
 # This is the linear search function that checks the word lists againt the inputted letters:
-def solve_wordle(known_letters):
+def solve_wordle(eliminated, known_letters):
     possible_words = set()
     # This code combines the two word lists and shuffles them so the answers list is mixed in with the allowed guesss list
     full_word_list = allowed_guesses + wordle_answers
