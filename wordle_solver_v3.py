@@ -21,42 +21,14 @@ with open('./allowed.txt') as allowed_file:
 
 # The next 4 variables will store the inputs: 
 
-known_letters = []
+
 
 eliminated = []
 
 known_position = []
 
 wrong_position = []
-
-          
-# This is the linear search function that checks the word lists againt the inputted letters:
-def solve_wordle():
-    possible_words = set()
-    # This code combines the two word lists and shuffles them so the answers list is mixed in with the allowed guesss list
-    full_word_list = allowed_guesses + wordle_answers
-    full_list_shuffled = random.sample(full_word_list, len(full_word_list))
-
-    for word in full_list_shuffled:
-        #Check if the word has any of the eliminated letters
-        has_eliminated = any([letter in word for letter in eliminated])
-        if not has_eliminated:
-            has_known = all([known in word for known in known_letters])
-            if has_known:
-                if known_position:
-                    has_known_position = all([(word[pair[0]] == pair[1]) for pair in known_position])
-                    if has_known_position:
-                        has_wrong_position = any([(word[pair[0]] == pair[1]) for pair in wrong_position])
-                        if not has_wrong_position:
-                            possible_words.add(word)
-                elif wrong_position:
-                    has_wrong_position = any([(word[pair[0]] == pair[1]) for pair in wrong_position])
-                    if not has_wrong_position:
-                        possible_words.add(word)
-                else:
-                    possible_words.add(word)
-    print(*possible_words, sep="\n")
-    print("")                       
+                  
 
 # This is a helper function for the yes or no inputs
 def helper_yn(question):
@@ -173,8 +145,7 @@ def intro():
         print("or my program may not give you the correct answer(s).")
         print("")
         time.sleep(c)
-        
-       
+             
         q_start = "Are you ready to get started? Y/N: "
         get_started = helper_yn(q_start)
             
@@ -196,6 +167,8 @@ def intro():
 # This function lets you input the eliminated letters
 def get_eliminated():
     print("First, let's address any letters you've eliminated.")
+    print("")
+    time.sleep(a)
     q_eliminated = "Have you eliminated any letters from the word? Y/N: "
     any_eliminated = helper_yn(q_eliminated)
     
@@ -235,7 +208,10 @@ def get_eliminated():
 
 # This function lets you input the known letters
 def get_known():
+    known_letters = []
     print("Next, let's talk about the letters you know are in the word.")
+    print("")
+    time.sleep(a)
     q_known = "Are there any letters you know? Y/N: "
     any_known = helper_yn(q_known)
     
@@ -262,7 +238,7 @@ def get_known():
             print("")
             time.sleep(a)
             #runs the get_positions function
-            get_positions()
+            get_positions(known_letters)
        
     else:
         print("")
@@ -276,10 +252,10 @@ def get_known():
         print("")
         time.sleep(a)
         #run the solve_wordle function based on eliminated letters only
-        solve_wordle()
+        solve_wordle(known_letters)
 
 #This function let you input the correct and incorrect position of the known letters
-def get_positions():
+def get_positions(known_letters):
     print("Finally, I'm going to have you enter the positions of the letters you know.")
     print("")
     time.sleep(a)
@@ -367,7 +343,34 @@ def get_positions():
             time.sleep(a)
                        
     #runs the solve_wordle function 
-    solve_wordle()
+    solve_wordle(known_letters)
 
+# This is the linear search function that checks the word lists againt the inputted letters:
+def solve_wordle(known_letters):
+    possible_words = set()
+    # This code combines the two word lists and shuffles them so the answers list is mixed in with the allowed guesss list
+    full_word_list = allowed_guesses + wordle_answers
+    full_list_shuffled = random.sample(full_word_list, len(full_word_list))
+
+    for word in full_list_shuffled:
+        #Check if the word has any of the eliminated letters
+        has_eliminated = any([letter in word for letter in eliminated])
+        if not has_eliminated:
+            has_known = all([known in word for known in known_letters])
+            if has_known:
+                if known_position:
+                    has_known_position = all([(word[pair[0]] == pair[1]) for pair in known_position])
+                    if has_known_position:
+                        has_wrong_position = any([(word[pair[0]] == pair[1]) for pair in wrong_position])
+                        if not has_wrong_position:
+                            possible_words.add(word)
+                elif wrong_position:
+                    has_wrong_position = any([(word[pair[0]] == pair[1]) for pair in wrong_position])
+                    if not has_wrong_position:
+                        possible_words.add(word)
+                else:
+                    possible_words.add(word)
+    print(*possible_words, sep="\n")
+    print("")    
 
 intro()
